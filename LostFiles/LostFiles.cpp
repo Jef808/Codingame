@@ -48,10 +48,9 @@ void DSU<N>::unite(int a, int b)
     }
 }
 
-
 int main()
 {
-    FILE* file = std::freopen("data.txt", "r", stdin);
+    std::freopen("data.txt", "r", stdin);
 
     int n_edges{0};
     std::cin >> n_edges;
@@ -59,16 +58,24 @@ int main()
     DSU<1000> dsu = DSU<1000>();
     
     int start, end;
-    while (n_edges--) {
+    for (int i=0; i<n_edges; ++i) {
         std::cin >> start >> end;
 
         dsu.unite(start, end);
     }
-    int n_comps = std::count_if(dsu.size.begin(),
-                                  dsu.size.end(),
-                                  [](int a) {
-                                      return a > 1;
-                                  });
 
-    std::cout << n_comps << std::endl;
+    int n_comps = 0, n_vertices=0;
+    
+    for (int size : dsu.size) {
+        if (size > 1) {
+            ++n_comps;
+            n_vertices += size;
+        }
+    }
+
+    // For every component, v - e + f = 2
+    int n_tiles = n_edges - n_vertices + n_comps;
+
+    std::cout << n_comps << ' ' << n_tiles << std::endl;
+
 }
