@@ -50,7 +50,7 @@ void DSU<N>::unite(int a, int b)
 
 int main()
 {
-    std::freopen("data.txt", "r", stdin);
+    //std::freopen("data.txt", "r", stdin);
 
     int n_edges{0};
     std::cin >> n_edges;
